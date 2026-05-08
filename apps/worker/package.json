@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@reviewai/types": "workspace:*",
     "bullmq": "^5.58.9",
     "dotenv": "^17.2.2",
     "ioredis": "^5.7.0",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "@reviewai/types": "workspace:*",
+    "@reviewai/db": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.4.0",
