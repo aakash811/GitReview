@@ -8,12 +8,15 @@ importers:
 
   .:
     dependencies:
-      dotenv:
-        specifier: ^17.4.2
-        version: 17.4.2
+      bullmq:
+        specifier: ^5.76.6
+        version: 5.76.6
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(postgres@3.4.9)
+      ioredis:
+        specifier: ^5.10.1
+        version: 5.10.1
       postgres:
         specifier: ^3.4.9
         version: 3.4.9
@@ -24,6 +27,9 @@ importers:
       '@types/node':
         specifier: ^25.6.2
         version: 25.6.2
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       drizzle-kit:
         specifier: ^0.31.10
         version: 0.31.10
@@ -42,6 +48,9 @@ importers:
       '@reviewai/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@reviewai/redis':
+        specifier: workspace:*
+        version: link:../../packages/redis
       '@reviewai/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -85,6 +94,9 @@ importers:
       '@reviewai/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@reviewai/redis':
+        specifier: workspace:*
+        version: link:../../packages/redis
       '@reviewai/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -119,6 +131,18 @@ importers:
       postgres:
         specifier: ^3.4.7
         version: 3.4.9
+
+  packages/redis:
+    dependencies:
+      bullmq:
+        specifier: ^5.58.9
+        version: 5.76.6
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
+      ioredis:
+        specifier: ^5.7.0
+        version: 5.10.1
 
   packages/types: {}
 

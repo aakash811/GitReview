@@ -14,7 +14,8 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "@reviewai/types": "workspace:*",
-    "@reviewai/db": "workspace:*"
+    "@reviewai/db": "workspace:*",
+    "@reviewai/redis": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -14,7 +14,8 @@
     "ioredis": "^5.7.0",
     "zod": "^4.4.3",
     "@reviewai/types": "workspace:*",
-    "@reviewai/db": "workspace:*"
+    "@reviewai/db": "workspace:*",
+    "@reviewai/redis": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.4.0",

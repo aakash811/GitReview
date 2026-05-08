@@ -1,0 +1,17 @@
+{
+  "name": "@reviewai/redis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "bullmq": "^5.58.9",
+    "dotenv": "^17.4.2",
+    "ioredis": "^5.7.0"
+  }
+}
