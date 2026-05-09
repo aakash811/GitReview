@@ -138,7 +138,11 @@ importers:
         specifier: ^3.4.7
         version: 3.4.9
 
-  packages/github: {}
+  packages/github:
+    dependencies:
+      '@reviewai/redis':
+        specifier: workspace:*
+        version: link:../redis
 
   packages/redis:
     dependencies:

@@ -8,6 +8,5 @@ export async function GET() {
   const pr = await client.getPullRequestMetadata("facebook", "react", 31000);
   const diff = await client.getPullRequestDiff("facebook", "react", 31000);
 
-  return new Response(diff);
-  return Response.json(pr);
+  return Response.json({ pr, diff });
 }
