@@ -16,7 +16,8 @@
     "next-auth": "5.0.0-beta.25",
     "@reviewai/types": "workspace:*",
     "@reviewai/db": "workspace:*",
-    "@reviewai/redis": "workspace:*"
+    "@reviewai/redis": "workspace:*",
+    "@reviewai/github": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
