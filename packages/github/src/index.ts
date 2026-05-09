@@ -5,3 +5,5 @@ export * from "./client/github.client";
 export * from "./client/github.errors";
 export * from "./client/github.types";
 export * from "./cache/repo-cache.service";
+export * from "./parser/diff.parser";
+export * from "./parser/diff.types";
