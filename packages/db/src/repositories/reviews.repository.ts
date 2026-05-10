@@ -2,6 +2,7 @@ import { db } from "../index";
 import { reviews } from "../schema";
 import { and, eq, gt } from "drizzle-orm";
 import type { ReviewStatus } from "@reviewai/types";
+import { findings } from "../schema";
 
 export class ReviewsRepository {
   async createReview(data: {
@@ -41,5 +42,44 @@ export class ReviewsRepository {
         status,
       })
       .where(eq(reviews.id, reviewId));
+  }
+
+  async completeReview(
+    reviewId: string,
+    data: {
+      summary: string;
+      riskLevel: string;
+      metrics: unknown;
+    },
+  ) {
+    await db
+      .update(reviews)
+      .set({
+        status: "complete",
+        summary: data.summary,
+        riskLevel: data.riskLevel,
+        metrics: data.metrics,
+        completedAt: new Date(),
+      })
+      .where(eq(reviews.id, reviewId));
+  }
+
+  async getReviewById(reviewId: string) {
+    const review = await db.query.reviews.findFirst({
+      where: eq(reviews.id, reviewId),
+    });
+
+    if (!review) {
+      return null;
+    }
+
+    const reviewFindings = await db.query.findings.findMany({
+      where: eq(findings.reviewId, reviewId),
+    });
+
+    return {
+      ...review,
+      findings: reviewFindings,
+    };
   }
 }
