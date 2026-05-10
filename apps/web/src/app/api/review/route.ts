@@ -2,6 +2,8 @@ import z from "zod";
 import { parseGithubPRUrl } from "@reviewai/github";
 import { getReviewQueue } from "@reviewai/redis";
 import { ReviewsRepository } from "@reviewai/db";
+import { headers } from "next/headers";
+import { checkRateLimit } from "@/lib/check-rate-limit";
 import crypto from "crypto";
 import { cache } from "react";
 
@@ -12,6 +14,15 @@ const BodySchema = z.object({
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const headersList = await headers();
+
+    const ip = headersList.get("x-forwarded-for") ?? "anonymous";
+
+    const rateLimit = await checkRateLimit(ip);
+
+    if (!rateLimit.success) {
+      return rateLimit.response;
+    }
 
     const parsed = BodySchema.parse(body);
     parseGithubPRUrl(parsed.prUrl);
