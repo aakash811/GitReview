@@ -1,5 +1,5 @@
 import type { DiffChunk, PullRequestMetadata } from "@reviewai/github";
-import { ReviewStatus } from "@reviewai/types/src/review";
+import { ReviewStatus } from "@reviewai/types";
 
 export interface ReviewJobPayload {
   reviewId: string;
@@ -14,7 +14,7 @@ export interface PipelineContext {
   status: ReviewStatus;
   prMetadata?: PullRequestMetadata;
   rawDiff?: string;
-  parsedChunk?: DiffChunk[];
+  parsedChunks?: DiffChunk[];
   findings?: unknown[];
   summary?: string;
   riskLevel?: string;

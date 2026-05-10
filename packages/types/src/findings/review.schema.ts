@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { FindingSchema } from "./findings.schema";
+import { FindingSchema } from "./finding.schema";
 
 export const ReviewResultSchema = z.object({
   summary: z.string().min(10).max(3000),

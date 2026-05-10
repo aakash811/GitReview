@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { FindingTypes, SeverityLevels } from "./findings.types";
+import { FindingTypes, SeverityLevels } from "./finding.types";
 
 export const FindingSchema = z.object({
   type: z.enum(FindingTypes),
