@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
 import path from "path";
-
 dotenv.config({
   path: path.resolve(process.cwd(), "../../.env"),
 });
 
 import { Worker } from "bullmq";
-
 import { getRedis } from "@reviewai/redis";
+import { runReviewPipeline } from "./pipeline/review.pipeline";
+import { ReviewJobPayload } from "./pipeline/review.types";
 
 console.log("Worker service started");
 
@@ -15,20 +15,26 @@ const worker = new Worker(
   "review-queue",
 
   async (job) => {
+    const payload = job.data as ReviewJobPayload;
+    console.log(`Starting review ${payload.reviewId}`);
     console.log("Processing job:", job.id);
-
     console.log("Job data:", job.data);
 
-    return {
-      success: true,
-    };
+    const result = await runReviewPipeline({
+      reviewId: payload.reviewId,
+      prUrl: payload.prUrl,
+      userId: payload.userId,
+      status: "pending",
+    });
+
+    console.log("Pipeline completed:", result.status);
+
+    return result;
   },
 
   {
     connection: getRedis(),
-
     prefix: "bull",
-
     concurrency: 2,
   },
 );

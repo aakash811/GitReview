@@ -100,6 +100,9 @@ importers:
       '@reviewai/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@reviewai/github':
+        specifier: workspace:*
+        version: link:../../packages/github
       '@reviewai/redis':
         specifier: workspace:*
         version: link:../../packages/redis
