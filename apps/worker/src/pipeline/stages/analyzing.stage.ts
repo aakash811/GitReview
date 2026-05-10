@@ -1,5 +1,6 @@
 import type { PipelineStage } from "../review.pipeline";
 import { GroqProvider } from "@reviewai/ai";
+import { ReviewsRepository } from "@reviewai/db";
 
 export const analyzingStage: PipelineStage = async (context) => {
   console.log("[Pipeline] ANALYZING");
@@ -7,6 +8,9 @@ export const analyzingStage: PipelineStage = async (context) => {
   if (!context.parsedChunks?.length) {
     throw new Error("Missing parsed chunks");
   }
+
+  const reviewsRepo = new ReviewsRepository();
+  await reviewsRepo.updateStatus(context.reviewId, "analyzing");
 
   const llm = new GroqProvider(process.env.GROQ_API_KEY);
 
