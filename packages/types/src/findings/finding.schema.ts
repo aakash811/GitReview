@@ -12,6 +12,7 @@ export const FindingSchema = z.object({
   filePath: z.string(),
 
   lineStart: z.number().int().nonnegative(),
+  lineEnd: z.number().int().nonnegative().optional(),
   confidence: z.number().min(0).max(1),
 });
 

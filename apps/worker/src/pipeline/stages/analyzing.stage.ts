@@ -13,18 +13,26 @@ export const analyzingStage: PipelineStage = async (context) => {
   const findings = [];
 
   for (const chunk of context.parsedChunks) {
-    const review = await llm.reviewChunk(chunk, {
+    const result = await llm.reviewChunk(chunk, {
       repository: context.prMetadata?.title ?? "Unknown",
+
       language: "TypeScript",
+
       framework: "React",
     });
 
-    findings.push(review);
+    if (result.success) {
+      findings.push(result.data);
+    } else {
+      console.warn("Chunk degraded:", result.reason);
+    }
   }
 
   return {
     ...context,
+
     status: "analyzing",
-    findings: [],
+
+    findings,
   };
 };

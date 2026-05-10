@@ -6,4 +6,4 @@ export const ReviewResultSchema = z.object({
   overallRiskScore: z.number().min(0).max(10),
   findings: z.array(FindingSchema),
 });
-export type ReviewResult = z.infer<typeof ReviewResultSchema>;
+export type ChunkReview = z.infer<typeof ReviewResultSchema>;
