@@ -5,6 +5,7 @@ import { ReviewsRepository } from "@reviewai/db";
 import { headers } from "next/headers";
 import { checkRateLimit } from "@/lib/check-rate-limit";
 import crypto from "crypto";
+import { handleApiError } from "@/lib/errors/handle-error";
 import { cache } from "react";
 
 const BodySchema = z.object({
@@ -62,15 +63,6 @@ export async function POST(request: Request) {
       },
     );
   } catch (error) {
-    console.log(error);
-
-    return Response.json(
-      {
-        error: "Failed to create review",
-      },
-      {
-        status: 500,
-      },
-    );
+    return handleApiError(error);
   }
 }
