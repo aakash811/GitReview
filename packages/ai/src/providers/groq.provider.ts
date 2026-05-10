@@ -3,6 +3,7 @@ import type { DiffChunk } from "@reviewai/github";
 import { validateReviewResult, type ReviewResult } from "@reviewai/types";
 import type { RepoContext } from "../types/repo-context";
 import type { LLMClient } from "./llm.interface";
+import { buildSystemPrompt, buildUserPrompt } from "../prompts/review.prompt";
 
 export class GroqProvider implements LLMClient {
   private readonly client: Groq;
@@ -21,37 +22,23 @@ export class GroqProvider implements LLMClient {
     chunk: DiffChunk,
     repoContext: RepoContext,
   ): Promise<ReviewResult> {
-    const prompt = `
-    You are an expert senior software engineer performing code review.
-
-    Repository:
-    ${repoContext.repository}
-
-    Language:
-    ${repoContext.language}
-
-    Review the following diff chunk carefully.
-
-    Return ONLY valid JSON.
-
-    Diff:
-    ${JSON.stringify(chunk)}
-    `;
+    const systemPrompt = buildSystemPrompt(repoContext);
+    const userPrompt = buildUserPrompt(chunk, repoContext);
 
     const completion = await this.client.chat.completions.create({
       model: "llama-3.3-70b-versatile",
-      temperature: 0.1,
+      temperature: 0,
       response_format: {
         type: "json_object",
       },
       messages: [
         {
           role: "system",
-          content: "Return ONLY valid JSON.",
+          content: systemPrompt,
         },
         {
           role: "user",
-          content: prompt,
+          content: userPrompt,
         },
       ],
     });
