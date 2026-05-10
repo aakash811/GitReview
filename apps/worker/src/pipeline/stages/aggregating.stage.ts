@@ -1,5 +1,4 @@
 import type { PipelineStage } from "../review.pipeline";
-
 import { ReviewAggregator } from "../../aggregators/review.aggregator";
 
 export const aggregatingStage: PipelineStage = async (context) => {
