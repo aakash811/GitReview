@@ -8,7 +8,7 @@ AI-powered GitHub Pull Request reviewer built with Next.js, BullMQ, Redis, Groq 
 
 GitReview AI automatically analyzes GitHub Pull Requests using an asynchronous AI pipeline.
 
-The system fetches PR diffs, parses changed files, runs semantic code analysis using LLMs, aggregates findings, and generates a structured review report.
+The system fetches PR diffs, parses changed files, runs semantic code analysis using LLMs, aggregates findings, and generates structured review reports.
 
 The architecture is intentionally designed like a production distributed system instead of a simple synchronous AI wrapper.
 
@@ -63,7 +63,19 @@ The architecture is intentionally designed like a production distributed system 
 
 # System Architecture
 
-## High-Level Flow
+## High-Level Architecture
+
+![Architecture Diagram](./docs/architecture.png)
+
+---
+
+## Internal Workflow Diagram
+
+![Workflow Diagram](./docs/flowchart.png)
+
+---
+
+# High-Level Flow
 
 ```text
 User submits GitHub PR
@@ -263,9 +275,9 @@ pnpm dev
 
 Services:
 
-- Frontend → [http://localhost:3000](http://localhost:3000)
-- Worker → [http://localhost:3001](http://localhost:3001)
-- Bull Board → [http://localhost:3001/admin/queues](http://localhost:3001/admin/queues)
+- Frontend → http://localhost:3000
+- Worker → http://localhost:3001
+- Bull Board → http://localhost:3000/admin/queues
 
 ---
 
@@ -319,6 +331,25 @@ Each finding contains:
 
 ---
 
+# Screenshots
+
+## BullMQ Queue Dashboard
+
+![Bull Board Dashboard](./docs/bullboard-dashboard.png)
+
+This dashboard provides operational visibility into:
+
+- Queue depth
+- Active jobs
+- Failed jobs
+- Completed jobs
+- Processing throughput
+- Worker health
+
+It demonstrates the distributed asynchronous infrastructure powering the review pipeline.
+
+---
+
 # Future Improvements
 
 - Multi-model AI evaluation
@@ -329,49 +360,6 @@ Each finding contains:
 - Streaming AI analysis
 - Team dashboards
 - Webhook-triggered reviews
-
----
-
-# Screenshots
-
-Add screenshots here:
-
-- Homepage
-- Review status pipeline
-- Final report page
-- Bull Board dashboard
-- Architecture diagram
-
----
-
-# Architecture Diagram
-
-Recommended:
-
-- Create diagram in Excalidraw
-- Export as PNG
-- Add under:
-
-```text
-/docs/architecture.png
-```
-
-Then embed:
-
-```md
-![Architecture Diagram](./docs/architecture.png)
-```
-
-Suggested components:
-
-- Next.js frontend
-- API layer
-- BullMQ queue
-- Redis
-- Worker
-- Groq AI
-- PostgreSQL
-- Bull Board
 
 ---
 
@@ -397,4 +385,4 @@ The goal was to build a production-style engineering system rather than a simple
 Aakash Borse
 
 GitHub:
-[https://github.com/aakash811](https://github.com/aakash811)
+https://github.com/aakash811
