@@ -8,6 +8,8 @@ export function getRedis(): IORedis {
       throw new Error("REDIS_URL is not set");
     }
 
+    console.log("Creating Redis client with BullMQ config");
+
     console.log("Creating Redis connection...");
 
     _redis = new IORedis(process.env.REDIS_URL, {
