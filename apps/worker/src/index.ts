@@ -71,3 +71,7 @@ worker.on("failed", (job, err) => {
 
   console.error(err);
 });
+
+const user = users[0];
+
+console.log(user.name);
