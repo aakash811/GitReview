@@ -34,9 +34,7 @@ export const analyzingStage: PipelineStage = async (context) => {
 
   return {
     ...context,
-
     status: "analyzing",
-
     findings,
   };
 };

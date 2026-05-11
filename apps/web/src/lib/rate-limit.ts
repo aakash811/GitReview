@@ -9,7 +9,7 @@ const redis = new Redis({
 
 export const rateLimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(10, "24 h"),
+  limiter: Ratelimit.slidingWindow(100, "24 h"),
   analytics: true,
   prefix: "reviewai",
 });

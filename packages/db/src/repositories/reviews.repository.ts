@@ -82,4 +82,23 @@ export class ReviewsRepository {
       findings: reviewFindings,
     };
   }
+
+  async findBySlug(slug: string) {
+    const review = await db.query.reviews.findFirst({
+      where: eq(reviews.publicSlug, slug),
+    });
+
+    if (!review) {
+      return null;
+    }
+
+    const reviewFindings = await db.query.findings.findMany({
+      where: eq(findings.reviewId, review.id),
+    });
+
+    return {
+      ...review,
+      findings: reviewFindings,
+    };
+  }
 }

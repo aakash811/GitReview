@@ -14,9 +14,7 @@ export const aggregatingStage: PipelineStage = async (context) => {
 
   return {
     ...context,
-
     status: "aggregating",
-
     aggregatedReview: aggregated,
   };
 };
