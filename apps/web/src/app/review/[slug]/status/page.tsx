@@ -33,10 +33,12 @@ export default function ReviewLoadingPage() {
 
     const interval = setInterval(async () => {
       try {
-        const response = await fetch(`/api/review/${reviewId}`);
+        const response = await fetch(`/api/review/${reviewId}`, {
+          cache: "no-store",
+        });
 
         const data = await response.json();
-
+        console.log("Polling status:", data.status);
         setStatus(data.status);
 
         if (data.status === "complete") {

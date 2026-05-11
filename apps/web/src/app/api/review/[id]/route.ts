@@ -1,4 +1,5 @@
 import { ReviewsRepository } from "@reviewai/db";
+export const dynamic = "force-dynamic";
 
 export async function GET(
   _request: Request,
