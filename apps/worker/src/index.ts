@@ -1,3 +1,4 @@
+import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 dotenv.config({
@@ -8,6 +9,24 @@ import { Worker } from "bullmq";
 import { getRedis } from "@reviewai/redis";
 import { runReviewPipeline } from "./pipeline/review.pipeline";
 import { ReviewJobPayload } from "./pipeline/review.types";
+
+const app = express();
+
+const PORT = process.env.PORT || 3001;
+
+app.get("/", (_, res) => {
+  res.send("ReviewAI Worker Running");
+});
+
+app.get("/health", (_, res) => {
+  res.json({
+    status: "ok",
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Health server listening on ${PORT}`);
+});
 
 console.log("Worker service started");
 
