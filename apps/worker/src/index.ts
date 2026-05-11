@@ -9,8 +9,23 @@ import { Worker } from "bullmq";
 import { getRedis } from "@reviewai/redis";
 import { runReviewPipeline } from "./pipeline/review.pipeline";
 import { ReviewJobPayload } from "./pipeline/review.types";
+import { createBullBoard } from "@bull-board/api";
+import { BullMQAdapter } from "@bull-board/api/bullMQAdapter";
+import { ExpressAdapter } from "@bull-board/express";
+import { getReviewQueue } from "@reviewai/redis";
 
 const app = express();
+
+const serverAdapter = new ExpressAdapter();
+
+serverAdapter.setBasePath("/admin/queues");
+
+createBullBoard({
+  queues: [new BullMQAdapter(getReviewQueue())],
+  serverAdapter,
+});
+
+app.use("/admin/queues", serverAdapter.getRouter());
 
 const PORT = process.env.PORT || 3001;
 

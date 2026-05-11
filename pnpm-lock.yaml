@@ -45,6 +45,15 @@ importers:
 
   apps/web:
     dependencies:
+      '@bull-board/api':
+        specifier: ^7.0.0
+        version: 7.0.0(@bull-board/ui@7.0.0)
+      '@bull-board/express':
+        specifier: ^7.0.0
+        version: 7.0.0
+      '@bull-board/ui':
+        specifier: ^7.0.0
+        version: 7.0.0
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.75.0(react@19.2.4))
@@ -66,6 +75,9 @@ importers:
       '@upstash/redis':
         specifier: ^1.38.0
         version: 1.38.0
+      express:
+        specifier: ^5.2.1
+        version: 5.2.1
       next:
         specifier: 16.2.5
         version: 16.2.5(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -112,6 +124,12 @@ importers:
 
   apps/worker:
     dependencies:
+      '@bull-board/api':
+        specifier: ^7.0.0
+        version: 7.0.0(@bull-board/ui@7.0.0)
+      '@bull-board/express':
+        specifier: ^7.0.0
+        version: 7.0.0
       '@reviewai/ai':
         specifier: workspace:*
         version: link:../../packages/ai
@@ -293,6 +311,17 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
+
+  '@bull-board/api@7.0.0':
+    resolution: {integrity: sha512-ISNspLHVmUWUSq/eLw+wd1FuBBUnqpLbYP2xUNmehpfKhS+NoZWMbBvqjUYVeE/HLfUkRcR1edzMKpl5n9zlSw==}
+    peerDependencies:
+      '@bull-board/ui': 7.0.0
+
+  '@bull-board/express@7.0.0':
+    resolution: {integrity: sha512-3Tc/EyU5PQMTcTzcafFSrmRDiEbJBEU/EaVQ5OVYcuJ7DZCp5Pkvm0/2VtaCe2uywdtwn0ZaynlSIpB27FKX6A==}
+
+  '@bull-board/ui@7.0.0':
+    resolution: {integrity: sha512-AnKeklpDn0iMFgu4ukDU6uTNmw4oudl07G4k2Fh95SknKDrXSiWRV0N1TGUawMqyfG1Yi5P/W/8d7raBq/Uw6w==}
 
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
@@ -1910,6 +1939,11 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
+  ejs@5.0.2:
+    resolution: {integrity: sha512-IpbUaI/CAW86l3f+T8zN0iggSc0LmMZLcIW5eRVStLVNCoTXkE0YlncbbH50fp8Cl6zHIky0sW2uUbhBqGw0Jw==}
+    engines: {node: '>=0.12.18'}
+    hasBin: true
+
   electron-to-chromium@1.5.352:
     resolution: {integrity: sha512-9wHk8x6dyuimoe18EdiDPWKExNdxYqo4fn4FwOVVper6RxT3cmpBwBkWWfSOCYJjQdIco/nPhJhNLmn4Ufg1Yg==}
 
@@ -2582,6 +2616,9 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
+
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
@@ -2903,6 +2940,9 @@ packages:
   redis-errors@1.2.0:
     resolution: {integrity: sha512-1qny3OExCf0UvUV/5wpYKf2YwPcOqXzkwKKSmKHiE6ZMQs5heeE/c8eXK+PNllPvmjgAbfnsbpkGZWy8cBpn9w==}
     engines: {node: '>=4'}
+
+  redis-info@3.1.0:
+    resolution: {integrity: sha512-ER4L9Sh/vm63DkIE0bkSjxluQlioBiBgf5w1UuldaW/3vPcecdljVDisZhmnCMvsxHNiARTTDDHGg9cGwTfrKg==}
 
   redis-parser@3.0.0:
     resolution: {integrity: sha512-DJnGAeenTdpMEH6uAJRK/uiyEIH9WVsUmoLwzudwGJUwZPp80PDBWPHXSAGNPwNvIXAbe7MSUB1zQFugFml66A==}
@@ -3384,6 +3424,24 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@bull-board/api@7.0.0(@bull-board/ui@7.0.0)':
+    dependencies:
+      '@bull-board/ui': 7.0.0
+      redis-info: 3.1.0
+
+  '@bull-board/express@7.0.0':
+    dependencies:
+      '@bull-board/api': 7.0.0(@bull-board/ui@7.0.0)
+      '@bull-board/ui': 7.0.0
+      ejs: 5.0.2
+      express: 5.2.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@bull-board/ui@7.0.0':
+    dependencies:
+      '@bull-board/api': 7.0.0(@bull-board/ui@7.0.0)
 
   '@drizzle-team/brocli@0.10.2': {}
 
@@ -4544,6 +4602,8 @@ snapshots:
 
   ee-first@1.1.1: {}
 
+  ejs@5.0.2: {}
+
   electron-to-chromium@1.5.352: {}
 
   emoji-regex@9.2.2: {}
@@ -5455,6 +5515,8 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
+  lodash@4.18.1: {}
+
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
@@ -5746,6 +5808,10 @@ snapshots:
   react@19.2.4: {}
 
   redis-errors@1.2.0: {}
+
+  redis-info@3.1.0:
+    dependencies:
+      lodash: 4.18.1
 
   redis-parser@3.0.0:
     dependencies:

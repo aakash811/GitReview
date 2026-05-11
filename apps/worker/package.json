@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@bull-board/api": "^7.0.0",
+    "@bull-board/express": "^7.0.0",
     "@reviewai/ai": "workspace:*",
     "@reviewai/db": "workspace:*",
     "@reviewai/github": "workspace:*",
