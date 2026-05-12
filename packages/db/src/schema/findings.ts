@@ -22,7 +22,7 @@ export const findings = pgTable("findings", {
 
   filePath: text("file_path").notNull(),
 
-  lineStart: integer("line_start"),
+  lineStart: integer("line_start").notNull(),
 
   lineEnd: integer("line_end"),
 
@@ -30,11 +30,15 @@ export const findings = pgTable("findings", {
 
   description: text("description").notNull(),
 
-  suggestion: text("suggestion"),
+  suggestion: text("suggestion").notNull(),
 
   confidence: real("confidence"),
 
   chunkIndex: integer("chunk_index"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
+
+  codeSnippet: text("code_snippet"),
+
+  suggestedCode: text("suggested_code"),
 });

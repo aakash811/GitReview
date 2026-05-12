@@ -7,7 +7,6 @@ import { estimateTokens } from "../utils/token-estimator";
 export class DiffParser {
   parse(diff: string): DiffChunk[] {
     const files = diff.split(/^diff --git/m);
-
     const chunks: DiffChunk[] = [];
 
     for (const rawFile of files) {
@@ -27,9 +26,7 @@ export class DiffParser {
 
   private parseFile(rawFile: string): DiffChunk | null {
     const lines = rawFile.split("\n");
-
     const header = lines[0];
-
     const match = header.match(/a\/(.+?) b\/(.+)/);
 
     if (!match) {
@@ -43,21 +40,13 @@ export class DiffParser {
     if (this.shouldSkipFile(fileName)) {
       return {
         fileName,
-
         fileType: this.getFileExtension(fileName),
-
         changeType: "modified",
-
         additions: 0,
-
         deletions: 0,
-
         hunks: [],
-
         tokenEstimate: 0,
-
         skipped: true,
-
         skipReason: "non_reviewable_file",
       };
     }
@@ -77,26 +66,39 @@ export class DiffParser {
       .map((line) => line.content)
       .join("\n");
 
+    const firstHunk = hunks[0];
+
+    const codeSnippet = hunks
+      .flatMap((hunk) => hunk.lines)
+      .map((line) => {
+        if (line.type === "add") {
+          return `+ ${line.content}`;
+        }
+
+        if (line.type === "delete") {
+          return `- ${line.content}`;
+        }
+
+        return `  ${line.content}`;
+      })
+      .join("\n");
+
     return {
       fileName,
-
       fileType: this.getFileExtension(fileName),
-
       changeType: this.detectChangeType(lines),
-
       additions,
-
       deletions,
-
       hunks,
-
       tokenEstimate: estimateTokens(content),
+      codeSnippet,
+      startLine: firstHunk?.newStart ?? 0,
+      endLine: (firstHunk?.newStart ?? 0) + (firstHunk?.newLines ?? 0),
     };
   }
 
   private parseHunks(lines: string[]): Hunk[] {
     const hunks: Hunk[] = [];
-
     let currentHunk: Hunk | null = null;
 
     for (const line of lines) {
@@ -113,16 +115,11 @@ export class DiffParser {
 
         currentHunk = {
           oldStart: Number(match[1]),
-
           oldLines: Number(match[2] || 1),
-
           newStart: Number(match[3]),
-
           newLines: Number(match[4] || 1),
-
           lines: [],
         };
-
         continue;
       }
 

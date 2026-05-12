@@ -14,6 +14,8 @@ export const parsingStage: PipelineStage = async (context) => {
   const parser = new DiffParser();
   const parsedChunks = parser.parse(context.rawDiff);
 
+  console.log(parsedChunks[0]);
+
   return {
     ...context,
     status: "parsing",

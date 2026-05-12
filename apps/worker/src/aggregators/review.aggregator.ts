@@ -1,4 +1,4 @@
-import type { ChunkReview, Finding } from "@reviewai/types";
+import type { Finding } from "@reviewai/types";
 
 export interface AggregatedReview {
   findings: Finding[];
@@ -14,16 +14,14 @@ export interface AggregatedReview {
 }
 
 export class ReviewAggregator {
-  aggregate(reviews: ChunkReview[]): AggregatedReview {
-    const findings = this.deduplicateFindings(
-      reviews.flatMap((r) => r.findings),
-    );
-    const metrics = this.calculateMetrics(findings);
+  aggregate(findings: Finding[]): AggregatedReview {
+    const deduplicateFindings = this.deduplicateFindings(findings);
+    const metrics = this.calculateMetrics(deduplicateFindings);
     const riskLevel = this.calculateRiskLevel(metrics);
-    const summary = this.generateSummary(findings, riskLevel);
+    const summary = this.generateSummary(deduplicateFindings, riskLevel);
 
     return {
-      findings,
+      findings: deduplicateFindings,
       riskLevel,
       summary,
       metrics,
@@ -52,13 +50,9 @@ export class ReviewAggregator {
   private calculateMetrics(findings: Finding[]) {
     return {
       totalFindings: findings.length,
-
       critical: findings.filter((f) => f.severity === "critical").length,
-
       high: findings.filter((f) => f.severity === "high").length,
-
       medium: findings.filter((f) => f.severity === "medium").length,
-
       low: findings.filter((f) => f.severity === "low").length,
     };
   }

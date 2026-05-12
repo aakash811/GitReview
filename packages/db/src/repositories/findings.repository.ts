@@ -13,6 +13,8 @@ export class FindingsRepository {
       filePath: string;
       lineStart: number;
       lineEnd?: number;
+      codeSnippet?: string;
+      suggestedCode?: string;
       confidence: number;
     }>,
   ) {

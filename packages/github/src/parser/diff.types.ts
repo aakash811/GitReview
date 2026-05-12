@@ -23,4 +23,7 @@ export interface DiffChunk {
   tokenEstimate: number;
   skipped?: boolean;
   skipReason?: string;
+  codeSnippet?: string;
+  startLine?: number;
+  endLine?: number;
 }

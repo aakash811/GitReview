@@ -1,21 +1,36 @@
 interface Props {
-  risk: string;
+  level: string;
+  large?: boolean;
 }
 
-export function RiskBadge({ risk }: Props) {
-  const styles = {
-    high: "bg-red-100 text-red-700",
-    medium: "bg-yellow-100 text-yellow-700",
-    low: "bg-green-100 text-green-700",
-  };
+const riskConfig: Record<
+  string,
+  { color: string; dot: string; label: string }
+> = {
+  critical: { color: "text-red-400", dot: "bg-red-400", label: "Critical" },
+  high: { color: "text-orange-400", dot: "bg-orange-400", label: "High" },
+  medium: { color: "text-amber-400", dot: "bg-amber-400", label: "Medium" },
+  low: { color: "text-emerald-400", dot: "bg-emerald-400", label: "Low" },
+};
+
+export function RiskBadge({ level, large }: Props) {
+  const config = riskConfig[level.toLowerCase()] ?? riskConfig.low;
 
   return (
-    <span
-      className={`rounded-full px-3 py-1 text-sm font-medium ${
-        styles[risk as keyof typeof styles]
-      }`}
-    >
-      {risk}
-    </span>
+    <div className={`flex items-center gap-2 ${large ? "" : ""}`}>
+      <span className={`relative flex h-2 w-2`}>
+        <span
+          className={`absolute inline-flex h-full w-full animate-ping rounded-full ${config.dot} opacity-50`}
+        />
+        <span
+          className={`relative inline-flex h-2 w-2 rounded-full ${config.dot}`}
+        />
+      </span>
+      <span
+        className={`font-mono font-bold capitalize ${config.color} ${large ? "text-2xl" : "text-sm"}`}
+      >
+        {config.label}
+      </span>
+    </div>
   );
 }

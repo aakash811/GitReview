@@ -19,14 +19,17 @@ export const analyzingStage: PipelineStage = async (context) => {
   for (const chunk of context.parsedChunks) {
     const result = await llm.reviewChunk(chunk, {
       repository: context.prMetadata?.title ?? "Unknown",
-
       language: "TypeScript",
-
       framework: "React",
     });
 
     if (result.success) {
-      findings.push(result.data);
+      const findingData = result.data.findings.map((finding: any) => ({
+        ...finding,
+        codeSnippet: chunk.codeSnippet,
+        lineEnd: chunk.endLine,
+      }));
+      findings.push(...findingData);
     } else {
       console.warn("Chunk degraded:", result.reason);
     }
